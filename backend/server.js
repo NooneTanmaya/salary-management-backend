@@ -13,7 +13,7 @@ let employees = [
         id: 1,
         fullName: 'Tanmaya',
         country: 'India',
-        position: 'Software Engineer',
+        jobTitle: 'Software Engineer',
         salary: 60000,
 
     },
@@ -21,13 +21,25 @@ let employees = [
         id: 2,
         fullName: 'Manasa',
         country: 'India',
-        position: 'Product Manager',
+        jobTitle: 'Product Manager',
         salary: 80000,
     }
 ];
 
 app.get('/employees', (req, res) => {
     res.json(employees);
+});
+
+app.get('/summary', (req, res) => {
+    const totalEmployees = employees.length;
+    const totalSalary = employees.reduce((sum, emp) => sum + (Number(emp.salary) || 0), 0);
+    const averageSalary = totalEmployees > 0 ? totalSalary / totalEmployees : 0;
+
+    res.json({
+        totalEmployees,
+        totalSalary,
+        averageSalary,
+    });
 });
 
 app.post('/employees', (req, res) => {
