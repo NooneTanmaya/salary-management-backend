@@ -1,11 +1,10 @@
 # Salary Management Backend
 
-A simple Express backend for the Salary Management app.
+A simple Express backend for the Salary Management application.
 
 ## Overview
 
-This backend provides endpoints to manage employee data and summary statistics.
-It uses an in-memory data store and is intended for local development.
+This service provides backend endpoints to manage employee records and calculate salary statistics. It is designed for local development and works together with the frontend app in `../frontend`.
 
 ## Requirements
 
@@ -21,25 +20,27 @@ npm install
 
 ## Run
 
+Start the server in development mode:
+
 ```bash
 npm run dev
 ```
 
-The server starts on `http://localhost:5000`.
+The API will be available at `http://localhost:5000`.
 
-## Seed Data
+## Seed data
 
-Generate a seed file with 10,000 employees by running:
+Generate sample employee data for local testing:
 
 ```bash
 npm run seed
 ```
 
-This writes `backend/data/employees.json` using names from `backend/data/first_names.txt` and `backend/data/last_names.txt`.
+This command generates `backend/data/employees.json` using names from `backend/data/first_names.txt` and `backend/data/last_names.txt`.
 
 ## Tests
 
-Run unit tests with:
+Run the backend test suite:
 
 ```bash
 npm test
@@ -47,29 +48,39 @@ npm test
 
 ## API Endpoints
 
-- `GET /employees`
-  - Returns the current list of employees.
-- `GET /summary`
-  - Returns summary statistics:
-    - `totalEmployees`
-    - `totalSalary`
-    - `averageSalary`
-- `POST /employees`
-  - Creates a new employee record.
-  - Expected JSON body:
-    ```json
-    {
-      "fullName": "Name",
-      "country": "Country",
-      "jobTitle": "Role",
-      "salary": 50000
-    }
-    ```
-- `DELETE /employees/:id`
-  - Deletes the employee with the given `id`.
+### GET /employees
+
+Returns the list of employee records.
+
+### GET /summary
+
+Returns salary summary statistics:
+
+- `totalEmployees`
+- `totalSalary`
+- `averageSalary`
+
+### POST /employees
+
+Create a new employee record.
+
+Request body example:
+
+```json
+{
+  "fullName": "Jane Doe",
+  "country": "USA",
+  "jobTitle": "Software Engineer",
+  "salary": 85000
+}
+```
+
+### DELETE /employees/:id
+
+Delete the employee with the specified `id`.
 
 ## Notes
 
-- Data is stored in memory and will reset when the server restarts.
-- CORS is enabled to allow the frontend to connect.
-- This backend is intended to be used together with the frontend app in `../frontend`.
+- The backend uses an in-memory data store, so data is reset when the server restarts.
+- CORS is enabled to allow requests from the frontend.
+- Use this backend together with the frontend in `../frontend` for a complete application.
