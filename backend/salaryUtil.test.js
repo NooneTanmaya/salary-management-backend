@@ -1,20 +1,12 @@
-const {
-    getTotalSalary
-} = require("../utils/salaryUtils");
+const assert = require('node:assert');
+const test = require('node:test');
+const { getTotalSalary } = require('./utils/salaryUtils');
 
-describe("Salary Utils", () => {
+test('getTotalSalary returns the sum of salaries', () => {
+  const employees = [
+    { salary: 10000 },
+    { salary: 20000 },
+  ];
 
-    test("calculates total salary", () => {
-
-        const employees = [
-            { salary: 10000 },
-            { salary: 20000 }
-        ];
-
-        expect(
-            getTotalSalary(employees)
-        ).toBe(30000);
-
-    });
-
+  assert.strictEqual(getTotalSalary(employees), 30000);
 });

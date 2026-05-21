@@ -27,6 +27,24 @@ npm run dev
 
 The server starts on `http://localhost:5000`.
 
+## Seed Data
+
+Generate a seed file with 10,000 employees by running:
+
+```bash
+npm run seed
+```
+
+This writes `backend/data/employees.json` using names from `backend/data/first_names.txt` and `backend/data/last_names.txt`.
+
+## Tests
+
+Run unit tests with:
+
+```bash
+npm test
+```
+
 ## API Endpoints
 
 - `GET /employees`
