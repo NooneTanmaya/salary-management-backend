@@ -1,86 +1,80 @@
-# Salary Management Backend
+# Salary Management — Backend
 
-A simple Express backend for the Salary Management application.
+An Express backend for the Salary Management application. This API provides endpoints used by the frontend to list, add and remove employees and to return summary metrics.
 
-## Overview
+## Quick start
 
-This service provides backend endpoints to manage employee records and calculate salary statistics. It is designed for local development and works together with the frontend app in `../frontend`.
+Prerequisites:
+- Node.js 18+ and `npm`
 
-## Requirements
-
-- Node.js 18+ or compatible
-- npm
-
-## Install
+Install dependencies:
 
 ```bash
 cd backend
 npm install
 ```
 
-## Run
-
-Start the server in development mode:
+Run the development server with auto-reload:
 
 ```bash
 npm run dev
 ```
 
-The API will be available at `http://localhost:5000`.
+The server listens on port `5000` by default (see `server.js`).
 
-## Seed data
+## API endpoints
 
-Generate sample employee data for local testing:
+- `GET /employees` — return an array of employee objects
+- `GET /summary` — return `{ totalEmployees, totalSalary, averageSalary }`
+- `POST /employees` — add a new employee (JSON body; required: `fullName`, `country`, `jobTitle`, `salary`)
+- `DELETE /employees/:id` — delete an employee by id
 
-```bash
-npm run seed
-```
-
-This command generates `backend/data/employees.json` using names from `backend/data/first_names.txt` and `backend/data/last_names.txt`.
-
-## Tests
-
-Run the backend test suite:
-
-```bash
-npm test
-```
-
-## API Endpoints
-
-### GET /employees
-
-Returns the list of employee records.
-
-### GET /summary
-
-Returns salary summary statistics:
-
-- `totalEmployees`
-- `totalSalary`
-- `averageSalary`
-
-### POST /employees
-
-Create a new employee record.
-
-Request body example:
+Example POST body:
 
 ```json
 {
   "fullName": "Jane Doe",
-  "country": "USA",
-  "jobTitle": "Software Engineer",
-  "salary": 85000
+  "country": "India",
+  "jobTitle": "Engineer",
+  "salary": 60000
 }
 ```
 
-### DELETE /employees/:id
+## Project structure
 
-Delete the employee with the specified `id`.
+- `server.js` — starts the HTTP server
+- `app.js` — Express application and routes
+- `utils/` — helper modules (`dataLoader.js`, `salaryUtils.js`, `nameGenerator.js`)
+- `data/` — seeded employee data and name lists
+- `scripts/seedEmployees.js` — utility to generate and seed many employees for testing
+- `employeeApi.test.js`, `summary.test.js`, `salaryUtil.test.js` — simple tests using Node's `test` runner and `supertest`
+
+## Scripts
+
+- `npm run dev` — run server with `nodemon` for development
+- `npm run seed` — generate seeded employee data (example: `npm run seed` will use defaults or pass a number)
+- `npm test` — run tests with Node's built-in test runner
+
+## Validation & errors
+
+- The backend validates required fields on `POST /employees` and returns `400` when missing. Example message:
+
+```
+{
+  "message": "Missing required fields: fullName, country, jobTitle, and salary are all required."
+}
+```
+
+The frontend reads and displays this message in the UI.
 
 ## Notes
 
-- The backend uses an in-memory data store, so data is reset when the server restarts.
-- CORS is enabled to allow requests from the frontend.
-- Use this backend together with the frontend in `../frontend` for a complete application.
+- CORS is enabled to allow the frontend to call the API during development.
+- The backend uses an in-memory data store; data is reset when the server restarts.
+- On Windows, if `npm` scripts fail due to execution policy, run `node server.js` directly or adjust your PowerShell execution policy.
+
+## Where to look next
+
+- Express app: `backend/app.js`
+- Seed script: `backend/scripts/seedEmployees.js`
+- Frontend: `frontend/` (see `frontend/README.md`)
