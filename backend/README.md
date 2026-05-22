@@ -77,4 +77,5 @@ The frontend reads and displays this message in the UI.
 
 - Express app: `backend/app.js`
 - Seed script: `backend/scripts/seedEmployees.js`
-- Frontend: `frontend/` (see `frontend/README.md`)
+ - Express app: `backend/app.js`
+ - Seed script: `backend/scripts/seedEmployees.js`

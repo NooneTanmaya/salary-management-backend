@@ -26,9 +26,21 @@ app.get('/summary', (req, res) => {
 });
 
 app.post('/employees', (req, res) => {
+  const { fullName, country, jobTitle, salary } = req.body;
+
+  // Validate required fields
+  if (!fullName || !country || !jobTitle || salary === undefined || salary === null) {
+    return res.status(400).json({ 
+      message: 'Missing required fields: fullName, country, jobTitle, and salary are all required.' 
+    });
+  }
+
   const newEmployee = {
     id: employees.length + 1,
-    ...req.body,
+    fullName,
+    country,
+    jobTitle,
+    salary,
   };
   employees.push(newEmployee);
   res.status(201).json(newEmployee);
